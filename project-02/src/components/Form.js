@@ -12,7 +12,7 @@ function Form({ setInputText, setTweets, tweetList, inputText }) {
     }
     const submitTweetHandler = (event) => {
         event.preventDefault()
-        setTweets([{ text: inputText, user: 'Giorgia', date: new Date(), id: Math.random() }, ...tweetList])
+        setTweets([{ content: inputText, userName: 'Giorgia', date: new Date(), id: Math.random() }, ...tweetList])
         setInputText('')
     }
     return (

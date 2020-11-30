@@ -5,9 +5,9 @@ const TweetList = ({ tweet }) => {
         <div>
             <ul>
                 <li>
-                    <div>{tweet.date.toString()}</div>
-                    <div>{tweet.text}</div>
-                    <div>{tweet.user}</div>
+                    <div>{tweet.date.toISOString()}</div>
+                    <div>{tweet.content}</div>
+                    <div>{tweet.userName}</div>
                 </li>
             </ul>
         </div>
