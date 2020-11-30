@@ -4,7 +4,11 @@ const TweetList = ({ tweet }) => {
     return (
         <div>
             <ul>
-                <li>{tweet.text}</li>
+                <li>
+                    <div>{tweet.date.toString()}</div>
+                    <div>{tweet.text}</div>
+                    <div>{tweet.user}</div>
+                </li>
             </ul>
         </div>
     )
