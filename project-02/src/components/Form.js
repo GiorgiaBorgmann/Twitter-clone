@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FetchTweet } from './Api'
+
 function Form({ setInputText, setTweets, tweetList, inputText }) {
     const [tweetTooLong, setTweetTooLong] = useState(false)
     const handleTweetToLong = (event) => {
@@ -29,9 +29,14 @@ function Form({ setInputText, setTweets, tweetList, inputText }) {
     }
     useEffect(() => {
         const getTweets = async () => {
+            showLoader()
             const tweetList = await fetch(URL);
             const data = await tweetList.json();
             setTweets(data.tweets);
+            console.log(data)
+            if (data) {
+                hideLoader()
+            }
         };
         getTweets();
     }, []);
@@ -42,20 +47,40 @@ function Form({ setInputText, setTweets, tweetList, inputText }) {
         newTweets.date = new Date().toISOString()
         newTweets.userName = 'Giorgia'
         dataRecieve(newTweets)
-        setTweets([newTweets, ...tweetList])
-        console.log(tweetList)
+        showLoader()
+        setTimeout(() => {
+            setTweets([newTweets, ...tweetList])
+            hideLoader()
+        }, 2000)
     }
-
     const submitTweetHandler = (event) => {
         event.preventDefault()
         addTweet(inputText)
         setInputText('')
     }
+    const PageLoader = () => {
+        return (
+            <div>Loading...</div>
+        )
+    }
+    const [loading, setLoading] = useState(false)
+    const usePageLoader = () => {
+        return [
+            loading ? PageLoader() : null,
+            () => setLoading(true),
+            () => setLoading(false)]
+
+    }
+    const [loader, showLoader, hideLoader] = usePageLoader()
+
     return (
         <div>
             <textarea value={inputText} onChange={e => handleTweetToLong(e)} placeholder="What you have in mind..."></textarea>
-            <button disabled={tweetTooLong} onClick={submitTweetHandler}>Tweet</button>
+            {!loading ? <button disabled={tweetTooLong} onClick={submitTweetHandler}>Tweet</button> : null}
+
+            { loader}
         </div>
+
     )
 }
 export default Form
