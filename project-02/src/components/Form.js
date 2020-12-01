@@ -75,9 +75,8 @@ function Form({ setInputText, setTweets, tweetList, inputText }) {
 
     return (
         <div>
-            <textarea value={inputText} onChange={e => handleTweetToLong(e)} placeholder="What you have in mind..."></textarea>
+            <textarea value={inputText} onChange={event => handleTweetToLong(event)} placeholder="What you have in mind..."></textarea>
             {!loading ? <button disabled={tweetTooLong} onClick={submitTweetHandler}>Tweet</button> : null}
-
             { loader}
         </div>
 
