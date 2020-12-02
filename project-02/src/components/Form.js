@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
-function Form({ setInputText, setTweets, tweetList, inputText }) {
+
+function Form({ userName, setInputText, setTweets, tweetList, inputText }) {
     const [tweetTooLong, setTweetTooLong] = useState(false)
     const handleTweetToLong = (event) => {
         setInputText(event.target.value)
@@ -45,7 +46,7 @@ function Form({ setInputText, setTweets, tweetList, inputText }) {
         const newTweets = {}
         newTweets.content = text;
         newTweets.date = new Date().toISOString()
-        newTweets.userName = 'Giorgia'
+        newTweets.userName = userName
         dataRecieve(newTweets)
         showLoader()
         setTimeout(() => {
@@ -69,17 +70,14 @@ function Form({ setInputText, setTweets, tweetList, inputText }) {
             loading ? PageLoader() : null,
             () => setLoading(true),
             () => setLoading(false)]
-
     }
     const [loader, showLoader, hideLoader] = usePageLoader()
-
     return (
         <div>
             <textarea value={inputText} onChange={event => handleTweetToLong(event)} placeholder="What you have in mind..."></textarea>
             {!loading ? <button disabled={tweetTooLong} onClick={submitTweetHandler}>Tweet</button> : null}
             { loader}
         </div>
-
     )
 }
 export default Form

@@ -1,18 +1,10 @@
-import React, { useState } from 'react'
-import Form from './components/Form.js'
-import Tweet from './components/Tweet.js'
-
+import React from 'react'
+import Main from './components/Main.js'
 
 function App() {
-  const [inputText, setInputText] = useState('');
-  const [tweetList, setTweets] = useState([]);
 
-  return (
-    <div >
-      <Form inputText={inputText} tweetList={tweetList} setTweets={setTweets} setInputText={setInputText} />
-      {tweetList.map((tweet, index) => (
-        < Tweet key={index} tweet={tweet} />))}
-    </div>
+  return (   
+    <Main />
   );
 }
 
