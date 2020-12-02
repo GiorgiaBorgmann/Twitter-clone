@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { TweetListContext } from '../contexts/TweetListContext'
 
 
-function Form({ userName, setInputText, setTweets, tweetList, inputText }) {
+function Form({ userName, setInputText, inputText }) {
+    const { setTweets, tweetList } = useContext(TweetListContext)
     const [tweetTooLong, setTweetTooLong] = useState(false)
     const handleTweetToLong = (event) => {
         setInputText(event.target.value)
@@ -16,6 +18,7 @@ function Form({ userName, setInputText, setTweets, tweetList, inputText }) {
     const URL = "https://micro-blogging-dot-full-stack-course-services.ew.r.appspot.com/tweet"
 
     const dataRecieve = async (newTweets) => {
+        showLoader()
         const tweetList = await fetch(URL, {
             method: "POST",
             body: JSON.stringify(newTweets),
@@ -24,22 +27,28 @@ function Form({ userName, setInputText, setTweets, tweetList, inputText }) {
                 "Content-Type": "application/json",
             },
         });
+
         if (!tweetList.ok) Error("error");
         const data = await tweetList.json();
+        hideLoader()
         console.log(data)
     }
     useEffect(() => {
-        const getTweets = async () => {
-            showLoader()
-            const tweetList = await fetch(URL);
-            const data = await tweetList.json();
-            setTweets(data.tweets);
-            console.log(data)
-            if (data) {
-                hideLoader()
-            }
-        };
-        getTweets();
+
+        const interval = setInterval(() => {
+
+            const getTweets = async () => {
+
+                const tweetList = await fetch(URL);
+                const data = await tweetList.json();
+                setTweets(data.tweets);
+                console.log(data)
+
+            };
+            getTweets()
+        }, 1000)
+
+
     }, []);
 
     const addTweet = (text) => {
@@ -48,11 +57,11 @@ function Form({ userName, setInputText, setTweets, tweetList, inputText }) {
         newTweets.date = new Date().toISOString()
         newTweets.userName = userName
         dataRecieve(newTweets)
-        showLoader()
-        setTimeout(() => {
+
+
             setTweets([newTweets, ...tweetList])
-            hideLoader()
-        }, 2000)
+
+
     }
     const submitTweetHandler = (event) => {
         event.preventDefault()

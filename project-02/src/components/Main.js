@@ -3,10 +3,11 @@ import Form from './Form.js'
 import Tweet from './Tweet.js'
 import Profile from './Profile.js'
 import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom'
+import { TweetListContext } from '../contexts/TweetListContext'
 
 function Main() {
     const [inputText, setInputText] = useState('');
-    const [tweetList, setTweets] = useState([]);
+    const [tweetList, setTweets] = useState([])
     const [userName, setProfile] = useState('')
 
     return (
@@ -14,7 +15,7 @@ function Main() {
             <div className='navbar'>
                 <ul>
                     <li>
-                        <Link to="/home">Home</Link>
+                        <Link to="/">Home</Link>
                     </li>
                     <li>
                         <Link to="/profile">Profile</Link>
@@ -22,14 +23,17 @@ function Main() {
                 </ul>
                 <div>
                     <Switch>
-                        <Route exact path="/home">
-                            <Form userName={userName} inputText={inputText} tweetList={tweetList} setTweets={setTweets} setInputText={setInputText} />
-                            {tweetList.map((tweet, index) => (
-                                < Tweet key={index} tweet={tweet} />))}
-                        </Route>
-                        <Route exact path="/profile">
-                            <Profile userName={userName} setProfile={setProfile} />
-                        </Route>
+                        <TweetListContext.Provider value={{ tweetList, setTweets }}>
+                            <Route exact path="/">
+                                <Form userName={userName} inputText={inputText} tweetList={tweetList} setTweets={setTweets} setInputText={setInputText} />
+                                {tweetList.map((tweet, index) => (
+                                    < Tweet key={index} tweet={tweet} />))}
+                            </Route>
+                            <Route exact path="/profile">
+                                <Profile userName={userName} setProfile={setProfile} />
+                            </Route>
+                        </TweetListContext.Provider>
+
                     </Switch>
                 </div>
             </div>
