@@ -1,13 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 body {
   margin: 0;
   background-color: #15202B;
   color: white;
+  font-family: 'Roboto', sans-serif;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+.nav-bar-container {
+  margin: 0 10% 3% 10%;
+  background-color: #343A40;
+  border-radius: 3px;
+  padding: 1%;
+  display: flex;
 }
 
-li {
+.nav-bar-container li {
   color: white;
+  list-style: none;
+  margin:   0 2%;
+}
+.link{
+  color: white;
+  opacity: 50%;
+  text-decoration: none;
+}
+.link:focus{
+  color: white;
+  opacity: 100%;
+}
+.container-form{
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-flow: column;
+  border: 2px solid #CCCCCC;
+  border-radius: 6px;
+  margin: 0 25%;
+  
+}
+textarea{  
+  background-color: #15202B;
+  box-sizing: border-box;
+  border: none;
+  margin: 2% 5% 0 5%;
+  padding: 1%;
+  color:#CCCCCC;
+}
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color:#CCCCCC;
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: #CCCCCC;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+  color: #CCCCCC;
+}
+.btn-container-form{
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin: 0 5% 2% 0;
+  
+}
+.btn-form{
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #FFFFFF;
+  background: #007BFF;
+  border: none;
+  padding: 1% 2%;
+  border-radius: 2px;
+}
+button:disabled{
+  background-color: grey;
+}
+.container-tweets{
+  display: flex;
+  justify-content: center;
+  padding: 0;
+}
+.li-tweet{
+  width: 100%;
+  background-color: #343A40;
+  list-style: none;
+  display: flex;
+  flex-flow: column;
+  margin: 0 25%;
+  border-radius: 6px;
+  padding: 1%;
+  
+}
+.user-name-date-container{
+display: flex;
+justify-content: space-between;
+margin-bottom: 2%;
+opacity: 50%;
+}
+
+/* Profile */
+.profile-container{
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+
+}
+h1{
+  color: white;
+}
+.container-input-profile{
+  width: 40%;
+  display: flex;
+  flex-flow: column;
+}
+.container-input-profile input{
+  background-color: #15202B;
+  border: 2px solid #CCCCCC;
+  box-sizing: border-box;
+  border-radius: 6px;
+  height: 50px;
+  color: white;
+  padding: 1% 3%;
+  margin-top: 2%;
+}
+.input-button-container{
+  width:40%;
+  display: flex; 
+  justify-content: flex-end;
+  margin-top: 1%;
+}
+.input-button-container  button{
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #FFFFFF;
+  background: #007BFF;
+  border: none;
+  padding: 1% 2%;
+  border-radius: 2px;
 }

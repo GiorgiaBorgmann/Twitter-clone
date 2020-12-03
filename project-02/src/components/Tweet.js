@@ -2,12 +2,14 @@ import React from 'react';
 
 const TweetList = ({ tweet }) => {
     return (
-        <div>
-            <ul>
-                <li>
-                    <div>{tweet.date}</div>
+        <div >
+            <ul className="container-tweets">
+                <li className="li-tweet">
+                    <div className="user-name-date-container">
+                        <div>{tweet.userName}</div>
+                    <div>{tweet.date}</div> 
+                    </div>               
                     <div>{tweet.content}</div>
-                    <div>{tweet.userName}</div>
                 </li>
             </ul>
         </div>

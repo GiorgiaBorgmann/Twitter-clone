@@ -34,28 +34,22 @@ function Form({ userName, setInputText, inputText }) {
         console.log(data)
     }
     useEffect(() => {
-
         const interval = setInterval(() => {
-
             const getTweets = async () => {
-
                 const tweetList = await fetch(URL);
                 const data = await tweetList.json();
                 setTweets(data.tweets);
                 console.log(data)
-
             };
             getTweets()
         }, 1000)
-
-
     }, []);
 
     const addTweet = (text) => {
         const newTweets = {}
         newTweets.content = text;
         newTweets.date = new Date().toISOString()
-        newTweets.userName = userName
+        newTweets.userName = userName || "User Name"
         dataRecieve(newTweets)
 
 
@@ -82,10 +76,13 @@ function Form({ userName, setInputText, inputText }) {
     }
     const [loader, showLoader, hideLoader] = usePageLoader()
     return (
-        <div>
-            <textarea value={inputText} onChange={event => handleTweetToLong(event)} placeholder="What you have in mind..."></textarea>
-            {!loading ? <button disabled={tweetTooLong} onClick={submitTweetHandler}>Tweet</button> : null}
+        <div className="container-form">
+            <textarea rows={6} cols={60} value={inputText} onChange={event => handleTweetToLong(event)} placeholder="What you have in mind..."></textarea>
             { loader}
+            <div className="btn-container-form">
+                {!loading ? <button className="btn-form" disabled={tweetTooLong} onClick={submitTweetHandler}>Tweet</button> : null}
+            </div>
+
         </div>
     )
 }
