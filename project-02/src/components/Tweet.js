@@ -9,7 +9,7 @@ const TweetList = ({ tweet }) => {
                         <div>{tweet.userName}</div>
                     <div>{tweet.date}</div> 
                     </div>               
-                    <div>{tweet.content}</div>
+                    <div className="tweet">{tweet.content}</div>
                 </li>
             </ul>
         </div>

@@ -14,7 +14,11 @@ function Form({ userName, setInputText, inputText }) {
             setInputText(event.target.value)
         }
     }
-
+    const messages = () => {
+        if (tweetTooLong) {
+            return (<div className="message">The tweet can not have more then 140 char</div>)
+        }
+    }
     const URL = "https://micro-blogging-dot-full-stack-course-services.ew.r.appspot.com/tweet"
 
     const dataRecieve = async (newTweets) => {
@@ -51,11 +55,7 @@ function Form({ userName, setInputText, inputText }) {
         newTweets.date = new Date().toISOString()
         newTweets.userName = userName || "User Name"
         dataRecieve(newTweets)
-
-
-            setTweets([newTweets, ...tweetList])
-
-
+        setTweets([newTweets, ...tweetList])
     }
     const submitTweetHandler = (event) => {
         event.preventDefault()
@@ -80,6 +80,7 @@ function Form({ userName, setInputText, inputText }) {
             <textarea rows={6} cols={60} value={inputText} onChange={event => handleTweetToLong(event)} placeholder="What you have in mind..."></textarea>
             { loader}
             <div className="btn-container-form">
+                {messages()}
                 {!loading ? <button className="btn-form" disabled={tweetTooLong} onClick={submitTweetHandler}>Tweet</button> : null}
             </div>
 
