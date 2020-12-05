@@ -31,11 +31,9 @@ function Form({ userName, setInputText, inputText }) {
                 "Content-Type": "application/json",
             },
         });
-
         if (!tweetList.ok) Error("error");
         const data = await tweetList.json();
         hideLoader()
-        console.log(data)
     }
     useEffect(() => {
         const interval = setInterval(() => {
@@ -83,7 +81,6 @@ function Form({ userName, setInputText, inputText }) {
                 {messages()}
                 {!loading ? <button className="btn-form" disabled={tweetTooLong} onClick={submitTweetHandler}>Tweet</button> : null}
             </div>
-
         </div>
     )
 }
