@@ -21,14 +21,13 @@ body {
 }
 
 .link {
-  color: white;
-  opacity: 50%;
+  color: #6C757D;
   text-decoration: none;
 }
 
 .link:focus {
   color: white;
-  opacity: 100%;
+  
 }
 
 .container-form {
@@ -111,7 +110,7 @@ button:disabled {
   display: flex;
   justify-content: space-between;
   margin-bottom: 2%;
-  opacity: 50%;
+  color: #6C757D;
 }
 
 /* Profile */
