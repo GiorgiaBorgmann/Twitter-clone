@@ -5,11 +5,20 @@ const TweetList = ({ tweet }) => {
         <div >
             <ul className="container-tweets">
                 <li className="li-tweet">
-                    <div className="user-name-date-container">
-                        <div>{tweet.userName}</div>
-                    <div>{tweet.date}</div> 
-                    </div>               
-                    <div className="tweet">{tweet.content}</div>
+                    <img className="image-container" src={tweet.photoURL}></img>
+
+
+                    <div className="text-container">
+                        <div className="user-name-date-container">
+                            <div>{tweet.userName}</div>
+                            <div>{tweet.date}</div> 
+                        </div>               
+                        <div className="tweet">{tweet.content}</div>
+                    </div>
+
+
+
+
                 </li>
             </ul>
         </div>

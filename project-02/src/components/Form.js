@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { TweetListContext } from '../contexts/TweetListContext'
+import firebase from 'firebase/app';
 
-
-function Form({ userName, setInputText, inputText }) {
+function Form({ user, userName, setInputText, inputText }) {
     const { setTweets, tweetList } = useContext(TweetListContext)
     const [tweetTooLong, setTweetTooLong] = useState(false)
     const handleTweetToLong = (event) => {
@@ -14,48 +14,39 @@ function Form({ userName, setInputText, inputText }) {
             setInputText(event.target.value)
         }
     }
-    const messages = () => {
+    const alert = () => {
         if (tweetTooLong) {
             return (<div className="message">The tweet can not have more then 140 char</div>)
         }
     }
-    const URL = "https://micro-blogging-dot-full-stack-course-services.ew.r.appspot.com/tweet"
-
-    const dataRecieve = async (newTweets) => {
-        showLoader()
-        const tweetList = await fetch(URL, {
-            method: "POST",
-            body: JSON.stringify(newTweets),
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-            },
-        });
-
-        if (!tweetList.ok) Error("error");
-        const data = await tweetList.json();
-        hideLoader()
-        console.log(data)
-    }
+   
     useEffect(() => {
-        const interval = setInterval(() => {
-            const getTweets = async () => {
-                const tweetList = await fetch(URL);
-                const data = await tweetList.json();
-                setTweets(data.tweets);
-                console.log(data)
-            };
-            getTweets()
-        }, 1000)
-    }, []);
+        let newArray = []
+        const getTweets = async () => {
+            firebase.firestore().collection('tweet').orderBy('date', 'desc').onSnapshot((singleTweet) => {
+                singleTweet.forEach((element) => {
+                    newArray.push(element.data())
+                })
+            })
+            showLoader()
+            const finalArr = newArray
+            setTweets(finalArr)
+            if (finalArr) {
+                hideLoader()
+            }
+        }
+        getTweets();
+    }, [])
 
     const addTweet = (text) => {
         const newTweets = {}
         newTweets.content = text;
         newTweets.date = new Date().toISOString()
-        newTweets.userName = userName || "User Name"
-        dataRecieve(newTweets)
+        newTweets.userName = user.displayName
+        newTweets.photoURL = user.photoURL
         setTweets([newTweets, ...tweetList])
+        firebase.firestore().collection('tweet').add(newTweets)
+
     }
     const submitTweetHandler = (event) => {
         event.preventDefault()
@@ -78,13 +69,12 @@ function Form({ userName, setInputText, inputText }) {
     return (
         <div className="container-form">
             <textarea rows={6} cols={60} value={inputText} onChange={event => handleTweetToLong(event)} placeholder="What you have in mind..."></textarea>
-            { loader}
+                { loader}
             <div className="btn-container-form">
-                {messages()}
+                {alert()}
                 {!loading ? <button className="btn-form" disabled={tweetTooLong} onClick={submitTweetHandler}>Tweet</button> : null}
             </div>
-
-        </div>
-    )
+            </div>  
+         )
 }
 export default Form

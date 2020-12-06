@@ -101,27 +101,32 @@ button:disabled {
   background-color: #343A40;
   list-style: none;
   display: flex;
-  flex-flow: column;
   margin: 0 25%;
   border-radius: 6px;
   padding: 1%;
 }
-
+.image-container    {
+  margin-left: 2%;
+  margin-right: 4%;
+}
 .user-name-date-container {
   display: flex;
+  width: 100%;
   justify-content: space-between;
   margin-bottom: 2%;
   opacity: 50%;
 }
-
+.text-container{
+  display: flex;
+  flex-flow: column;
+  width:100%
+}
 /* Profile */
-
 .profile-container {
   display: flex;
   flex-flow: column;
   align-items: center;
 }
-
 h1 {
   color: white;
 }
@@ -160,7 +165,8 @@ h1 {
   padding: 2% 3%;
   border-radius: 2px;
 }
-.message{
+
+.message {
   margin: 0 40% 0 0;
   color: #721C24;
   background-color: #F8D7DA;
@@ -170,33 +176,6 @@ h1 {
   border-radius: 4px;
   font-size: 0.8rem;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .tweet {
   word-break: break-all;
