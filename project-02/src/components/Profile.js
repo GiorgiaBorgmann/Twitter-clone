@@ -14,7 +14,11 @@ function Profile({ user }) {
     }
     const submitProfileHandler = (event) => {
         event.preventDefault()
-        setUserName(userName)
+        firebase.auth().onAuthStateChanged(user => {
+            user.updateProfile({
+                displayName: userName
+            })
+        })
         setInputValue("")
     }
     const [file, setFile] = useState([])
@@ -40,21 +44,26 @@ function Profile({ user }) {
         })
 
     }
-
     return (
         <form className="profile-container">
+            <div className="border-profile">
             <div className="container-input-profile">
                 <h1>Profile</h1>
-                <label>User Name</label>
+                    <label>Change user name</label>
                 <input type="text" value={inputValue} onChange={event => handleUserProfile(event)}></input>
             </div>
             <div className="input-button-container">
                 <button onClick={submitProfileHandler}>Submit</button>
             </div>
-            <div>
-                <input type="file" onChange={(event) => choseFile(event)}></input>
+                <h4>Upload profile picture</h4>
+                <div className="flex-file">
+                    <div className='upload'>
+                        <div className="upload-text">Chose File</div>
+                        <input name="upload" type="file" onChange={(event) => choseFile(event)} />
+                    </div>
+                    <button className='submit-file' onClick={(event) => submitProfilePicture(event)}>Change profile photo</button>
+                </div>
             </div>
-            <button onClick={(event) => submitProfilePicture(event)}>Change profile photo</button>
         </form>
     )
 

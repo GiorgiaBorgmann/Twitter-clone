@@ -39,8 +39,8 @@ function Form({ user, userName, setInputText, inputText }) {
         const newTweets = {}
         newTweets.content = text;
         newTweets.date = new Date().toISOString()
-        newTweets.userName = user.displayName || userName
-        newTweets.photoURL = user.photoURL
+        newTweets.userName = user.displayName 
+        newTweets.photoURL = user.photoURL 
         showLoader()
         setTimeout(() => {
             setTweets([newTweets, ...tweetList])

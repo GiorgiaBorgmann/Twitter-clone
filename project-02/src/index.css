@@ -19,16 +19,18 @@ body {
   list-style: none;
   margin: 0 2%;
 }
+.color-text{
+  color: #CCCCCC;
+}
 
 .sign-out, .link {
-  color: white;
-  opacity: 50%;
+  color: #b3aeae;
   text-decoration: none;
 }
 
 .sign-out, .link:focus {
   color: white;
-  opacity: 100%;
+
 }
 
 .sign-out {
@@ -114,7 +116,7 @@ button:disabled {
 }
 
 .image-container {
-  width: 30px;
+  width: 50px;
   margin-left: 2%;
   margin-right: 4%;
 }
@@ -141,14 +143,76 @@ button:disabled {
   align-items: center;
 }
 
+.border-profile {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  width: 40%;
+  border: 2px solid #CCCCCC;
+  border-radius: 6px;
+  padding: 1% 2%;
+}
+
 h1 {
   color: white;
 }
 
 .container-input-profile {
-  width: 40%;
+  width: 100%;
   display: flex;
   flex-flow: column;
+}
+
+h4 {
+  width: 100%;
+  text-align: start;
+  font-weight: 300;
+}
+
+div.upload {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #007BFF;
+  overflow: hidden;
+  border-radius: 2px;
+  margin-right: 20px;
+}
+
+div.upload input {
+  display: block !important;
+  opacity: 0 !important;
+  overflow: hidden !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.upload-text {
+  width: 100%;
+  text-align: center;
+  margin-right: -240px;
+}
+
+.submit-file {
+  width: 90%;
+  color: #FFFFFF;
+  background: #007BFF;
+  font-size: 1rem;
+  border: none;
+  border-radius: 2px;
+  margin: 3% 0;
+  text-align: center;
+  font-size: 1rem;
+}
+
+.flex-file {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
 }
 
 .container-input-profile input {
@@ -163,7 +227,7 @@ h1 {
 }
 
 .input-button-container {
-  width: 40%;
+  width: 100%;
   display: flex;
   justify-content: flex-end;
   margin-top: 1%;
@@ -231,7 +295,7 @@ h1 {
   justify-content: center;
 }
 
-.btn-sing-up-border button, .btn-login button {
+.submit-file, .btn-sing-up-border button, .btn-login button {
   width: 100%;
   color: #FFFFFF;
   background: #007BFF;
