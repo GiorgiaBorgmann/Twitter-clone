@@ -23,7 +23,7 @@ function Form({ user, userName, setInputText, inputText }) {
     useEffect(() => {
         const getTweets = async () => {
             let newArray = []
-            await firebase.firestore().collection('tweet').orderBy('date', 'desc').get()
+            await firebase.firestore().collection('tweet').orderBy('date', 'desc').limit(10).get()
                 .then(((snapshot) => {
                     snapshot.forEach((doc) => {
                         newArray.push(doc.data())

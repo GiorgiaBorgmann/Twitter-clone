@@ -20,8 +20,9 @@ const LogIn = () => {
     const signInWithGoogle = () => {
         auth.signInWithPopup(provider);
     }
-    const login = () => {
-        auth.signInWithEmailAndPassword(emailExist, passwordExist)
+    const login = async () => {
+        const user = auth.signInWithEmailAndPassword(emailExist, passwordExist)
+        console.log(user)
         history.push('/')
     }
     return (
@@ -59,7 +60,6 @@ const SignUpForm = () => {
 
     }
     const signup = (email, password) => {
-
         auth.createUserWithEmailAndPassword(email, password)
             .then((result) => {
                 return result.user.updateProfile({

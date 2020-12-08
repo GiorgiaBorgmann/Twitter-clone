@@ -13,13 +13,13 @@ import { Register, SignOut } from './RegisterUser'
      const [inputText, setInputText] = useState('');
      const [tweetList, setTweets] = useState([])
      const [user] = useAuthState(auth);
+     console.log(user)
      const [userName, setUserName] = useState('')
 
      if (user) {
     return (
         <Router>
             <div >
-
                 <ul className='nav-bar-container'>
                     <li>
                         <Link className="link" to="/">Home</Link>
@@ -41,14 +41,13 @@ import { Register, SignOut } from './RegisterUser'
                                     < Tweet key={index} tweet={tweet} />))}
                             </Route>
                             <Route exact path="/profile">
-                                    <Profile userName={userName} setUserName={setUserName} />
+                                    <Profile userName={userName} user={user} setUserName={setUserName} />
                             </Route>
                             </UserContext.Provider>
                         </TweetListContext.Provider>
                     </Switch>
                 </div>
             </div>
-
              </Router>)
 
      } else {
