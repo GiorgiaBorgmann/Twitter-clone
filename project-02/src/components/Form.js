@@ -3,7 +3,7 @@ import { TweetListContext } from '../contexts/TweetListContext'
 import firebase from 'firebase/app';
 
 function Form({ user, userName, setInputText, inputText }) {
-    const { setTweets, tweetList } = useContext(TweetListContext)
+    const { tweetList, setTweets } = useContext(TweetListContext)
     const [tweetTooLong, setTweetTooLong] = useState(false)
     const handleTweetToLong = (event) => {
         setInputText(event.target.value)
@@ -21,32 +21,32 @@ function Form({ user, userName, setInputText, inputText }) {
     }
    
     useEffect(() => {
-        let newArray = []
         const getTweets = async () => {
-            firebase.firestore().collection('tweet').orderBy('date', 'desc').onSnapshot((singleTweet) => {
-                singleTweet.forEach((element) => {
-                    newArray.push(element.data())
+            let newArray = []
+            await firebase.firestore().collection('tweet').orderBy('date', 'desc').get()
+                .then(((snapshot) => {
+                    snapshot.forEach((doc) => {
+                        newArray.push(doc.data())
                 })
-            })
-            showLoader()
-            const finalArr = newArray
-            setTweets(finalArr)
-            if (finalArr) {
-                hideLoader()
-            }
+                }))
+            setTweets(newArray)            
         }
-        getTweets();
+      getTweets();
+
     }, [])
 
     const addTweet = (text) => {
         const newTweets = {}
         newTweets.content = text;
         newTweets.date = new Date().toISOString()
-        newTweets.userName = user.displayName
+        newTweets.userName = user.displayName || userName
         newTweets.photoURL = user.photoURL
-        setTweets([newTweets, ...tweetList])
+        showLoader()
+        setTimeout(() => {
+            setTweets([newTweets, ...tweetList])
+            hideLoader()
+        }, 1000)
         firebase.firestore().collection('tweet').add(newTweets)
-
     }
     const submitTweetHandler = (event) => {
         event.preventDefault()
@@ -67,12 +67,12 @@ function Form({ user, userName, setInputText, inputText }) {
     }
     const [loader, showLoader, hideLoader] = usePageLoader()
     return (
-        <div className="container-form">
+        <div className="container-form">           
             <textarea rows={6} cols={60} value={inputText} onChange={event => handleTweetToLong(event)} placeholder="What you have in mind..."></textarea>
                 { loader}
             <div className="btn-container-form">
                 {alert()}
-                {!loading ? <button className="btn-form" disabled={tweetTooLong} onClick={submitTweetHandler}>Tweet</button> : null}
+                {!loading && <button className="btn-form" disabled={tweetTooLong} onClick={submitTweetHandler}>Tweet</button>}
             </div>
             </div>  
          )

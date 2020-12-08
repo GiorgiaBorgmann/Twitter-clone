@@ -1,4 +1,4 @@
-import fb from 'firebase/app';
+import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
 
@@ -12,8 +12,8 @@ const firebaseConfig = {
     measurementId: "G-QNL7FFX2PT"
 };
 
-fb.initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
 
-export const firestore = fb.firestore();
-export const auth = fb.auth();
-export const provider = new fb.auth.GoogleAuthProvider();
+export const firestore = firebase.firestore();
+export const auth = firebase.auth();
+export const provider = new firebase.auth.GoogleAuthProvider();

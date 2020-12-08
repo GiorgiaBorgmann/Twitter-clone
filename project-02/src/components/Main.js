@@ -3,32 +3,18 @@ import Form from './Form.js'
 import Profile from './Profile.js'
 import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom'
 import { TweetListContext, UserContext } from '../contexts/TweetListContext'
-import firebase from 'firebase/app';
 import { auth } from './Firebase'
 import { useAuthState } from 'react-firebase-hooks/auth';
 import Tweet from './Tweet.js'
-function SignIn() {
-    const signInWithGoogle = () => {
-        const provider = new firebase.auth.GoogleAuthProvider();
-        auth.signInWithPopup(provider);
-    }
-    return (
-        <div>
-            <button className="sign-in" onClick={signInWithGoogle}>Sign in with Google</button>
-        </div>
-    )
-}
-function SignOut() {
-    return auth.currentUser && (
-        <button className="sign-out" onClick={() => auth.signOut()}>Sign Out</button>
-    )
-}
+import { Register, SignOut } from './RegisterUser'
+
+
  function Main() {
      const [inputText, setInputText] = useState('');
      const [tweetList, setTweets] = useState([])
-     const [userName, setUserName] = useState('')     
      const [user] = useAuthState(auth);
-     console.log(user)
+     const [userName, setUserName] = useState('')
+
      if (user) {
     return (
         <Router>
@@ -62,10 +48,17 @@ function SignOut() {
                     </Switch>
                 </div>
             </div>
+
              </Router>)
 
      } else {
-         return (<SignIn />)
+         return (
+             <Router>
+                 <Route path="/">
+                     <Register user={{ user }} />
+                 </Route>
+             </Router>
+         )
      }              
 }
 export default Main;
